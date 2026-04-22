@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NovaPlus - Sign Up</title>
+
+<!-- Start of HubSpot Embed Code -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js-na2.hs-scripts.com/245865235.js"></script>
+<!-- End of HubSpot Embed Code -->
+
+  <style>
+    body { font-family: Arial; text-align: center; padding: 50px; }
+    input, button { padding: 10px; margin: 10px; width: 250px; }
+  </style>
+</head>
+
+<body>
+
+<h1>Welcome to NovaPlus</h1>
+<p>Your all-in-one project management solution</p>
+
+<form id="signupForm">
+  <input type="text" id="name" placeholder="Your Name" required><br>
+  <input type="email" id="email" placeholder="Your Email" required><br>
+  <button type="submit">Sign Up</button>
+</form>
+
+<script>
+// Capture UTM parameters
+const params = new URLSearchParams(window.location.search);
+
+if (params.get("utm_source")) {
+  localStorage.setItem("utm_source", params.get("utm_source"));
+}
+
+if (params.get("utm_campaign")) {
+  localStorage.setItem("utm_campaign", params.get("utm_campaign"));
+}
+
+document.getElementById("signupForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const data = {
+    name: document.getElementById("name").value,
+    email: document.getElementById("email").value,
+    utm_source: localStorage.getItem("utm_source"),
+    utm_campaign: localStorage.getItem("utm_campaign")
+  };
+
+  await fetch("https://komu.app.n8n.cloud/webhook-test/f72f7781-cf3d-4c3b-883f-08a6970c1395", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  });
+
+  // Redirect after submission
+  window.location.href = "intro.html";
+});
+</script>
+
+</body>
+</html>
